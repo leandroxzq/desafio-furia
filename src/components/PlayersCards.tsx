@@ -1,7 +1,7 @@
+/* eslint-disable @next/next/no-img-element */
 "use client"
 
 import { useState, useEffect } from "react"
-import Image from "next/image"
 import { CardBody, CardContainer, CardItem } from "@/components/ui/3d-card"
 
 type Player = {
@@ -69,7 +69,7 @@ export default function PlayersCards() {
 							translateZ="100"
 							className="w-full mt-4 flex items-center  justify-center"
 						>
-							<Image
+							<img
 								src={player.image_url}
 								width={1000}
 								height={1000}
