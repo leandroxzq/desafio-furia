@@ -21,40 +21,26 @@ export default async function handler(
 		const players = await getFuriaPlayers()
 
 		const contextPrompt = `
-            Você é um assistente da equipe de CS2 FURIA. Seja mais amigavel, e mande sugestoes
+			Você é um assistente amigável da equipe de CS2 FURIA.
 
-            Lineup atual da FURIA:
-            ${players
-							.map(
-								(p: player) =>
-									`- nick: ${p.name} - idade: ${p.age} - pais: ${p.nationality}`
-							)
-							.join("\n")}
+			Aqui estão os jogadores da lineup atual:
+			${players
+				.map((p: player) => `- ${p.name}, ${p.age} anos, ${p.nationality}`)
+				.join("\n")}
 
-			Te enviei a lineup atual e json processe ele e use esses dados para respostas expecificas
-			
+			Instruções:
+			- Quando a pergunta for sobre o próximo jogo da FURIA, responda apenas com a palavra-chave: FETCH_MATCH.
+			- Se a pergunta for sobre um jogador (ex: Fallen), utilize os dados fornecidos.
+			- Seja direto, informal e simpático com o usuário.
+			- NUNCA use markdown.
 
-            Se a pergunta for sobre o próximo jogo da FURIA, responda exatamente com a frase "FETCH_MATCH".
-            Se a pergunta for sobre jogadores, use as informações acima pra complementar mas voce pode buscar por si proprio.
-
-			Não use nenhum tipo de markdown na respostas
-						
-
-            Pergunta: ${question}
-        `
+			Pergunta do usuário: """${question}"""
+			Responda com a melhor resposta possível ou FETCH_MATCH se for o caso.
+			`
 
 		const aiResponse = await ai.models.generateContent({
-			model: "gemini-2.0-flash",
-			contents: [
-				{
-					role: "user",
-					parts: [
-						{
-							text: contextPrompt,
-						},
-					],
-				},
-			],
+			model: "gemini-2.5-flash-preview-04-17",
+			contents: [{ role: "user", parts: [{ text: contextPrompt }] }],
 		})
 
 		const geminiAnswer = aiResponse.text

@@ -31,15 +31,19 @@ const Chatbot = () => {
 	const buttons = [
 		{
 			text: "Próximo jogo",
-			question: "qual próximo jogo da furia?",
+			question: "Qual próximo jogo da furia?",
 		},
 		{
 			text: "Fallen",
-			question: "quem é o fallen?",
+			question: "Quem é o fallen?",
 		},
 		{
 			text: "Molodoy",
-			question: "quem é o molodoy?",
+			question: "Quem é o molodoy?",
+		},
+		{
+			text: "Lineup",
+			question: "Qual é a lineup?",
 		},
 	]
 
@@ -47,15 +51,26 @@ const Chatbot = () => {
 		setQuestion(e.target.value)
 	}
 
-	const handleSubmit = async (e: React.FormEvent) => {
-		e.preventDefault()
+	const handleQuestion = (questionText: string) => {
+		handleSubmit(undefined, questionText)
+	}
+
+	const handleSubmit = async (
+		e?: React.FormEvent,
+		overrideQuestion?: string
+	) => {
+		if (e) e.preventDefault()
+
+		const finalQuestion = overrideQuestion ?? question
+
+		if (finalQuestion.trim() === "") return
 
 		setMessages((prevMessages) => [
 			...prevMessages,
-			{ sender: "user", text: question },
+			{ sender: "user", text: finalQuestion },
 		])
 
-		setQuestion("")
+		if (!overrideQuestion) setQuestion("")
 
 		try {
 			const response = await fetch("/api/chatbot", {
@@ -63,12 +78,10 @@ const Chatbot = () => {
 				headers: {
 					"Content-Type": "application/json",
 				},
-				body: JSON.stringify({ question }),
+				body: JSON.stringify({ question: finalQuestion }),
 			})
 
-			if (!response.ok) {
-				throw new Error("Failed to fetch answer")
-			}
+			if (!response.ok) throw new Error("Failed to fetch answer")
 
 			const data = await response.json()
 
@@ -140,19 +153,18 @@ const Chatbot = () => {
 
 					<ul className="absolute bottom-0 px-2 lg:flex gap-3 hidden">
 						{buttons.map((button) => (
-							<button
-								type="button"
+							<li
 								key={button.text}
-								className="cursor-pointer bg-transparent"
+								className="bg-black rounded-2xl px-4 py-2 text-white text-sm shadow cursor-pointer"
+								onClick={() => handleQuestion(button.question)}
 							>
-								<li className="bg-black rounded-2xl px-4 py-2 text-white text-sm shadow">
-									{button.text}
-								</li>
-							</button>
+								{button.text}
+							</li>
 						))}
 					</ul>
 
 					<button
+						onClick={handleSubmit}
 						type="submit"
 						className="absolute cursor-pointer bottom-0 right-0 p-2 bg-black text-white rounded-full transition-colors font-medium"
 					>
