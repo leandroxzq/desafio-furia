@@ -86,7 +86,7 @@ const Chatbot = () => {
 	}
 
 	return (
-		<div className="flex flex-col rounded-lg px-4 py-8 w-[100%] lg:w-[80%]">
+		<div className="flex flex-col rounded-lg px-4 py-8 max-h-[100vh] w-[100%] lg:w-[80%]">
 			{/* Área de chat */}
 			<div
 				className="flex-1 p-4  overflow-y-auto
