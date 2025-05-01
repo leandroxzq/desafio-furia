@@ -33,7 +33,7 @@ export default function PlayersCards() {
 	}, [])
 
 	return (
-		<div className="flex flex-col gap-2 flex-wrap justify-center">
+		<div className="flex lg:flex-col gap-2 flex-wrap justify-center">
 			{players.map((player) => (
 				<CardContainer
 					key={player.name}

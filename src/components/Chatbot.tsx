@@ -14,10 +14,19 @@ const Chatbot = () => {
 	const [messages, setMessages] = useState<{ sender: string; text: string }[]>(
 		[]
 	)
+	const [isMobile, setIsMobile] = useState(false)
 
 	useEffect(() => {
-		endRef.current?.scrollIntoView({ behavior: "smooth" })
-	}, [messages])
+		if (window.innerWidth <= 768) {
+			setIsMobile(true)
+		} else {
+			setIsMobile(false)
+		}
+
+		if (!isMobile && messages.length > 0) {
+			endRef.current?.scrollIntoView({ behavior: "smooth" })
+		}
+	}, [messages, isMobile])
 
 	const buttons = [
 		{
