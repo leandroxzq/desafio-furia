@@ -5,18 +5,38 @@ import Chat from "@/components/Chat"
 
 import Image from "next/image"
 
+import { Bebas_Neue } from "next/font/google"
+
+const bebas = Bebas_Neue({
+	weight: "400",
+	subsets: ["latin"],
+})
+
+import { Roboto } from "next/font/google"
+
+const roboto = Roboto({
+	weight: "400",
+	subsets: ["latin"],
+})
+
 export default function Home() {
 	return (
-		<div className="flex flex-col min-h-dvh w-full relative">
-			<header className="w-full flex flex-col md:flex-row justify-center items-center p-4 shadow h-[8vh]">
-				<Image
-					src="https://furiagg.fbitsstatic.net/sf/img/logo-furia.svg?theme=main&amp;v=202503171541"
-					alt="FURIA Logo"
-					width={90}
-					height={32}
-					priority
-				/>
-				<p>BOT</p>
+		<div
+			className={`flex flex-col min-h-dvh w-full relative ${roboto.className}`}
+		>
+			<header className="w-full flex flex-col md:flex-row justify-center items-center shadow h-[8vh]">
+				<h1
+					className={`flex items-center font-extrabold text-2xl ${bebas.className}`}
+				>
+					<Image
+						src="https://furiagg.fbitsstatic.net/sf/img/logo-furia.svg?theme=main&amp;v=202503171541"
+						alt="FURIA Logo"
+						width={90}
+						height={32}
+						priority
+					/>
+					<p>BOT</p>
+				</h1>
 			</header>
 			<main className="flex flex-col pt-4 lg:flex-row h-[92vh] lg:pl-4 lg:pt-0">
 				<PlayCards />

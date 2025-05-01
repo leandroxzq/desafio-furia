@@ -50,7 +50,7 @@ export default function PlayersCards() {
 						</CardItem>
 						<CardItem
 							translateZ="100"
-							className="absolute inset-0 bg-black bg-opacity-80 text-white flex justify-center flex-col opacity-0 group-hover/card:opacity-100 transition-opacity duration-300 rounded-xl z-100 p-4"
+							className="text-sm absolute inset-0 bg-black bg-opacity-80 text-white flex justify-center flex-col opacity-0 group-hover/card:opacity-100 transition-opacity duration-300 rounded-xl z-100 p-4"
 						>
 							<CardItem>
 								<strong>
