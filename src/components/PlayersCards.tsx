@@ -33,14 +33,14 @@ export default function PlayersCards() {
 	}, [])
 
 	return (
-		<div className="flex gap-2 flex-wrap justify-center">
+		<div className="flex flex-col gap-2 flex-wrap justify-center">
 			{players.map((player) => (
 				<CardContainer
 					key={player.name}
-					className="inter-var max-w-[150px] py-0"
+					className="inter-var max-w-[135px] py-0"
 				>
 					<CardBody className="bg-gray-50 relative group/card dark:hover:shadow-2xl dark:hover:shadow-gray-500/[0.1] dark:bg-black dark:border-white/[0.2] border-black/[0.1] w-auto sm:w-[30rem] h-auto rounded-xl p-3 border">
-						<CardItem className="absolute opacity-100 ">
+						<CardItem className="absolute opacity-100">
 							<CardItem
 								translateZ="60"
 								className="text-xl font-bold text-neutral-600 dark:text-white"

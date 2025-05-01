@@ -14,6 +14,9 @@ import {
 } from "firebase/firestore"
 import { db } from "@/lib/firebase"
 
+import Image from "next/image"
+import furiaLogo from "../../public/Furia_Esports_logo.png"
+
 interface Message {
 	id: string
 	text: string
@@ -91,9 +94,9 @@ export default function Chat() {
 	}
 
 	return (
-		<div className="flex flex-col p-4 min-w-[100%] md:min-w-[50%] max-w-2xl mx-auto h-[70vh] bg-white rounded-lg shadow-lg">
+		<div className="flex flex-col p-4 border-l-1 border-l-gray-300 min-h-[100vh] lg:min-h-[92vh]">
 			{/* Seção de configuração do nome */}
-			<div className="flex items-center mb-4 bg-gray-50 p-3 rounded-lg">
+			<div className="flex items-center mb-4 p-3 rounded-lg">
 				<span className="text-sm font-medium text-gray-700 mr-2">
 					Nick chat:{" "}
 				</span>
@@ -106,17 +109,14 @@ export default function Chat() {
 			</div>
 
 			{/* Área de exibição de mensagens */}
-			<div className="flex-1 overflow-y-auto bg-gray-50 p-4 rounded-lg mb-4 space-y-3">
+			<div className="flex-1 overflow-y-auto rounded-lg mb-4 space-y-3">
 				{messages.map((msg) => (
 					<div
 						key={msg.id}
-						className={`p-3 rounded-lg ${
-							msg.senderId === userId
-								? "bg-blue-500 text-white ml-auto max-w-[80%]"
-								: "bg-gray-200 text-gray-800 mr-auto max-w-[80%]"
-						}`}
+						className="flex p-3 rounded-lg text-black ml-auto gap-1"
 					>
-						<div className="font-medium text-sm mb-1">{msg.senderName}</div>
+						<Image className="" src={furiaLogo} width={25} alt="" />
+						<div className="font-medium text-sm">{msg.senderName}: </div>
 						<div className="text-sm">{msg.text}</div>
 					</div>
 				))}
@@ -125,7 +125,7 @@ export default function Chat() {
 			{/* Formulário de envio de mensagem */}
 			<form onSubmit={sendMessage} className="flex gap-2">
 				<input
-					className="flex-1 border border-gray-300 px-4 py-2 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+					className="flex-1 border bg-white border-gray-300 px-4 py-2 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-gray-500 outline-none"
 					value={newMessage}
 					maxLength={100}
 					onChange={(e) => setNewMessage(e.target.value)}
@@ -133,7 +133,7 @@ export default function Chat() {
 				/>
 				<button
 					type="submit"
-					className="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition-colors font-medium"
+					className="cursor-pointer py-2 px-4 bg-black text-white rounded-2xl transition-colors font-medium"
 				>
 					Enviar
 				</button>

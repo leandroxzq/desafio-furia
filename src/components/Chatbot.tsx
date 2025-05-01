@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useRef, useEffect } from "react"
 
 import { ArrowUp } from "lucide-react"
 
@@ -8,10 +8,16 @@ import Image from "next/image"
 import furiaLogo from "../../public/Furia_Esports_logo.png"
 
 const Chatbot = () => {
+	const endRef = useRef<HTMLDivElement>(null)
+
 	const [question, setQuestion] = useState("")
 	const [messages, setMessages] = useState<{ sender: string; text: string }[]>(
 		[]
 	)
+
+	useEffect(() => {
+		endRef.current?.scrollIntoView({ behavior: "smooth" })
+	}, [messages])
 
 	const buttons = [
 		{
@@ -71,13 +77,15 @@ const Chatbot = () => {
 	}
 
 	return (
-		<div className="flex flex-col h-[70vh]  min-w-[100%] md:min-w-[50%] max-w-2xl mx-auto rounded-lg ">
-			<h1 className="text-2xl font-semibold p-4 text-center bg-[#292A2D] text-white rounded-t-lg">
-				Furiabot
-			</h1>
-
+		<div className="flex flex-col rounded-lg px-4 py-8 w-[100%] lg:w-[80%]">
 			{/* Área de chat */}
-			<div className="flex-1 overflow-auto p-4">
+			<div
+				className="flex-1 p-4  overflow-y-auto
+  [&::-webkit-scrollbar]:w-0
+  [&::-webkit-scrollbar]:h-0
+  [&::-webkit-scrollbar-track]:bg-transparent
+  [&::-webkit-scrollbar-thumb]:bg-transparent"
+			>
 				<div className="space-y-4">
 					{messages.map((message, index) => (
 						<div
@@ -89,8 +97,8 @@ const Chatbot = () => {
 							<div
 								className={`max-w-[80%] p-4 rounded-lg shadow-sm ${
 									message.sender === "user"
-										? "bg-[#292929] text-white"
-										: "bg-white"
+										? "bg-[#292929] border-2 border-stone-200 text-white"
+										: "bg-gray-50 border-2 border-gray-200"
 								}`}
 							>
 								<div className="flex gap-2 items-center text-sm whitespace-pre-wrap">
@@ -103,15 +111,16 @@ const Chatbot = () => {
 							</div>
 						</div>
 					))}
+					<div ref={endRef}></div>
 				</div>
 			</div>
 
 			{/* Formulário de input */}
 			<form
 				onSubmit={handleSubmit}
-				className="bg-gray-50 p-4 border-t border-gray-200 rounded-3xl"
+				className="bg-gray-50 p-4 border-2 border-gray-200 rounded-3xl"
 			>
-				<div className="flex gap-2 relative h-25">
+				<div className="flex gap-2 relative h-10 lg:h-25">
 					<input
 						type="text"
 						value={question}
@@ -120,14 +129,14 @@ const Chatbot = () => {
 						className="absolute top-0 left-0 flex-1 px-2 py-2 w-full rounded-lg  outline-none transition-all"
 					/>
 
-					<ul className="absolute bottom-0 px-2 flex gap-3">
+					<ul className="absolute bottom-0 px-2 lg:flex gap-3 hidden">
 						{buttons.map((button) => (
 							<button
 								type="button"
 								key={button.text}
-								className="cursor-pointer"
+								className="cursor-pointer bg-transparent"
 							>
-								<li className="bg-black rounded-2xl px-4 py-2 text-white text-sm">
+								<li className="bg-black rounded-2xl px-4 py-2 text-white text-sm shadow">
 									{button.text}
 								</li>
 							</button>
@@ -136,7 +145,7 @@ const Chatbot = () => {
 
 					<button
 						type="submit"
-						className="absolute bottom-0 right-0 p-2 bg-black text-white rounded-full transition-colors font-medium"
+						className="absolute cursor-pointer bottom-0 right-0 p-2 bg-black text-white rounded-full transition-colors font-medium"
 					>
 						<ArrowUp />
 					</button>
