@@ -126,9 +126,14 @@ const Chatbot = () => {
 										: "bg-gray-50 border-2 border-gray-200"
 								}`}
 							>
-								<div className="flex gap-2 items-start text-sm whitespace-pre-wrap">
+								<div className="flex gap-2 items-center text-sm whitespace-pre-wrap">
 									{message.sender !== "user" && (
-										<Image className="" src={furiaLogo} width={30} alt="" />
+										<Image
+											className="self-start"
+											src={furiaLogo}
+											width={30}
+											alt=""
+										/>
 									)}
 
 									{message.text}
