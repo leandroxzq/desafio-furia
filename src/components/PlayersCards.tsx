@@ -33,11 +33,11 @@ export default function PlayersCards() {
 	}, [])
 
 	return (
-		<div className="flex lg:flex-col gap-2 flex-wrap justify-center">
+		<div className="flex lg:flex-col gap-2 flex-wrap justify-center px-4">
 			{players.map((player) => (
 				<CardContainer
 					key={player.name}
-					className="inter-var max-w-[135px] py-0"
+					className="inter-var max-w-[80px] lg:max-w-[135px] py-0"
 				>
 					<CardBody className="bg-gray-50 relative group/card dark:hover:shadow-2xl dark:hover:shadow-gray-500/[0.1] dark:bg-black dark:border-white/[0.2] border-black/[0.1] w-auto sm:w-[30rem] h-auto rounded-xl p-3 border">
 						<CardItem className="absolute opacity-100">
@@ -73,7 +73,7 @@ export default function PlayersCards() {
 								src={player.image_url}
 								width={1000}
 								height={1000}
-								className="w-full min-w-[100px] object-cover rounded-xl group-hover/card:shadow-xl group-hover/card:brightness-50 transition-all duration-300"
+								className="w-full bject-cover rounded-xl group-hover/card:shadow-xl group-hover/card:brightness-50 transition-all duration-300"
 								alt="thumbnail"
 							/>
 						</CardItem>
