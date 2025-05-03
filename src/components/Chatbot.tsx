@@ -2,18 +2,19 @@
 
 import { useState, useRef, useEffect } from "react"
 
-import { ArrowUp } from "lucide-react"
+import { ArrowUp, LoaderCircle } from "lucide-react"
 
 import Image from "next/image"
 import furiaLogo from "../../public/Furia_Esports_logo.png"
 
-const Chatbot = () => {
+export default function Chatbot() {
 	const endRef = useRef<HTMLDivElement>(null)
 
 	const [question, setQuestion] = useState("")
 	const [messages, setMessages] = useState<{ sender: string; text: string }[]>(
 		[]
 	)
+	const [loading, setLoading] = useState(false)
 	const [isMobile, setIsMobile] = useState(false)
 
 	useEffect(() => {
@@ -65,13 +66,23 @@ const Chatbot = () => {
 	) => {
 		if (e) e.preventDefault()
 
+		setLoading(true)
+
 		const finalQuestion = overrideQuestion ?? question
 
-		if (finalQuestion.trim() === "") return
+		if (finalQuestion.trim() === "") {
+			setLoading(false)
+			return
+		}
 
 		setMessages((prevMessages) => [
 			...prevMessages,
 			{ sender: "user", text: finalQuestion },
+		])
+
+		setMessages((prevMessages) => [
+			...prevMessages,
+			{ sender: "bot", text: ". . ." },
 		])
 
 		if (!overrideQuestion) setQuestion("")
@@ -89,16 +100,19 @@ const Chatbot = () => {
 
 			const data = await response.json()
 
-			setMessages((prevMessages) => [
-				...prevMessages,
-				{ sender: "bot", text: data.answer },
-			])
+			setMessages((prevMessages) => {
+				const updated = [...prevMessages]
+				updated[updated.length - 1] = { sender: "bot", text: data.answer }
+				return updated
+			})
 		} catch (error) {
 			console.log(error)
 			setMessages((prevMessages) => [
 				...prevMessages,
 				{ sender: "bot", text: "Houve um erro ao processar sua pergunta." },
 			])
+		} finally {
+			setLoading(false)
 		}
 	}
 
@@ -156,6 +170,7 @@ const Chatbot = () => {
 						type="text"
 						value={question}
 						onChange={handleQuestionChange}
+						disabled={loading}
 						placeholder="Digite sua pergunta..."
 						className="absolute top-0 left-0 flex-1 px-2 py-2 w-full rounded-lg  outline-none transition-all"
 					/>
@@ -164,7 +179,7 @@ const Chatbot = () => {
 						{buttons.map((button) => (
 							<li
 								key={button.text}
-								className="bg-black rounded-2xl px-4 py-2 text-white text-sm shadow cursor-pointer"
+								className="bg-black rounded-2xl px-4 py-2 text-white text-sm shadow cursor-pointer hover:bg-[#535353]"
 								onClick={() => handleQuestion(button.question)}
 							>
 								{button.text}
@@ -175,14 +190,13 @@ const Chatbot = () => {
 					<button
 						onClick={handleSubmit}
 						type="submit"
-						className="absolute cursor-pointer bottom-0 right-0 p-2 bg-black text-white rounded-full transition-colors font-medium"
+						disabled={loading}
+						className="absolute cursor-pointer bottom-0 right-0 p-2 bg-black text-white rounded-full transition-colors font-medium hover:bg-[#535353]"
 					>
-						<ArrowUp />
+						{loading ? <LoaderCircle className="animate-spin" /> : <ArrowUp />}
 					</button>
 				</div>
 			</form>
 		</div>
 	)
 }
-
-export default Chatbot

@@ -102,7 +102,7 @@ export default function Chat() {
 	}
 
 	return (
-		<div className="flex flex-col lg:max-w-[400px] p-4 rounded-lg border-1 border-gray-300 lg:border-l-1 lg:border-r-0 lg:border-t-0 lg:border-b-0 min-h-[50vh] lg:min-h-[92vh]">
+		<div className="flex flex-col lg:min-w-[400px] lg:max-w-[400px] p-4 rounded-lg border-1 border-gray-300 lg:border-l-1 lg:border-r-0 lg:border-t-0 lg:border-b-0 min-h-[50vh] lg:min-h-[92vh]">
 			{/* Seção de configuração do nome */}
 			<div className="flex items-center mb-4 p-3 rounded-lg">
 				<span className="text-sm font-medium text-gray-700 mr-2">
@@ -158,7 +158,7 @@ export default function Chat() {
 				/>
 				<button
 					type="submit"
-					className="cursor-pointer py-2 px-4 bg-black text-white rounded-2xl transition-colors font-medium"
+					className="cursor-pointer py-2 px-4 bg-black text-white rounded-2xl transition-colors font-medium hover:bg-[#535353]"
 				>
 					Enviar
 				</button>
