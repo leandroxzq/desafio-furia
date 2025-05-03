@@ -7,6 +7,29 @@ import { ArrowUp, LoaderCircle } from "lucide-react"
 import Image from "next/image"
 import furiaLogo from "../../public/Furia_Esports_logo.png"
 
+const buttons = [
+	{
+		text: "Próximo jogo",
+		question: "Qual próximo jogo da furia?",
+	},
+	{
+		text: "Último resultado",
+		question: "Qual foi o último resultado da furia?",
+	},
+	{
+		text: "Fallen",
+		question: "Quem é o fallen?",
+	},
+	{
+		text: "Molodoy",
+		question: "Quem é o molodoy?",
+	},
+	{
+		text: "Lineup",
+		question: "Qual é a lineup?",
+	},
+]
+
 export default function Chatbot() {
 	const endRef = useRef<HTMLDivElement>(null)
 
@@ -28,29 +51,6 @@ export default function Chatbot() {
 			endRef.current?.scrollIntoView({ behavior: "smooth" })
 		}
 	}, [messages, isMobile])
-
-	const buttons = [
-		{
-			text: "Próximo jogo",
-			question: "Qual próximo jogo da furia?",
-		},
-		{
-			text: "Último resultado",
-			question: "Qual foi o último resultado da furia?",
-		},
-		{
-			text: "Fallen",
-			question: "Quem é o fallen?",
-		},
-		{
-			text: "Molodoy",
-			question: "Quem é o molodoy?",
-		},
-		{
-			text: "Lineup",
-			question: "Qual é a lineup?",
-		},
-	]
 
 	const handleQuestionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setQuestion(e.target.value)
