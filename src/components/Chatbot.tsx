@@ -175,7 +175,7 @@ export default function Chatbot() {
 						className="absolute top-0 left-0 flex-1 px-2 py-2 w-full rounded-lg  outline-none transition-all"
 					/>
 
-					<ul className="absolute bottom-0 px-2 lg:flex gap-3 hidden">
+					<ul className="absolute bottom-0 px-2 xl:flex gap-3 hidden">
 						{buttons.map((button) => (
 							<li
 								key={button.text}
