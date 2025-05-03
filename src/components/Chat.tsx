@@ -94,7 +94,7 @@ export default function Chat() {
 	}
 
 	return (
-		<div className="flex flex-col p-4 border-l-1 border-l-gray-300 min-h-[50vh] lg:min-h-[92vh]">
+		<div className="flex flex-col p-4 rounded-lg border-1 border-gray-300 lg:border-l-1 lg:border-r-0 min-h-[50vh] lg:min-h-[92vh]">
 			{/* Seção de configuração do nome */}
 			<div className="flex items-center mb-4 p-3 rounded-lg">
 				<span className="text-sm font-medium text-gray-700 mr-2">

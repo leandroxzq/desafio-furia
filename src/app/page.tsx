@@ -38,7 +38,7 @@ export default function Home() {
 					<p>BOT</p>
 				</h1>
 			</header>
-			<main className="flex flex-col pt-4 lg:flex-row h-[92vh] lg:pl-4 lg:pt-0">
+			<main className="flex flex-col lg:flex-row h-[92vh] lg:pt-0 mx-4 gap-4">
 				<PlayCards />
 				<Chatbot />
 				<Chat />

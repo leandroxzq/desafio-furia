@@ -99,10 +99,7 @@ const Chatbot = () => {
 	}
 
 	return (
-		<div className="flex flex-col rounded-lg px-4 py-8 min-h-[50vh] max-h-[100vh] w-[100%] lg:w-[80%]">
-			<h1 className="block lg:hidden text-center text-2xl rounded-xl shadow bg-black p-4 text-white">
-				Chatbot
-			</h1>
+		<div className="flex flex-col rounded-lg px-4 py-8 min-h-[50vh] max-h-[100vh] w-[100%] lg:w-[80%] border-1 border-gray-300 lg:border-0">
 			{/* Área de chat */}
 			<div
 				className="flex-1 p-4  overflow-y-auto
