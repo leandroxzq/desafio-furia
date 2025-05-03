@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next"
 
-import { getFuriaPlayers } from "../../src/lib/pandascore"
+import { getFuriaPlayers } from "@/lib/pandascore"
 
 export default async function handler(
 	req: NextApiRequest,

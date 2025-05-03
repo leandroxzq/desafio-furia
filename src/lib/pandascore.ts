@@ -10,6 +10,18 @@ const api = axios.create({
 	},
 })
 
+interface matchResult {
+	team_id: number
+	score: number
+}
+
+interface matchOpponent {
+	opponent: {
+		id: number
+		name: string
+	}
+}
+
 interface upcoming {
 	opponent: {
 		name: string
@@ -102,9 +114,55 @@ export const getUpcomingMatch = async () => {
 			locale: ptBR,
 		})
 
-		return `O próximo jogo é ${teams} na ${formatedDate} pela liga ${match.league.name}.`
+		return `O próximo jogo é ${teams}. ${formatedDate} pela liga ${match.league.name}.`
 	} catch (error) {
 		console.error("Erro ao obter jogo:", error)
 		return "Desculpe, não consegui obter os detalhes do próximo jogo."
+	}
+}
+
+export const getLastMatchResult = async () => {
+	try {
+		const response = await api.get("/csgo/matches/past", {
+			params: {
+				"filter[opponent_id]": 124530,
+				sort: "-begin_at",
+				"filter[finished]": true,
+				"filter[opponents_filled]": true,
+				per_page: 1,
+			},
+		})
+
+		if (response.data.length === 0) {
+			return "Nenhuma partida anterior encontrada."
+		}
+
+		const match = response.data[0]
+
+		const teams = match.opponents
+			.map((o: matchOpponent) => o.opponent.name)
+			.join(" vs ")
+
+		const formatedDate = format(match.begin_at, "PPPP", { locale: ptBR })
+
+		const result = match.results.find(
+			(res: matchResult) => res.team_id === 124530
+		)
+
+		const furiaScore = result?.score ?? "N/D"
+
+		const opponentResult = match.results.find(
+			(res: matchResult) => res.team_id !== 124530
+		)
+		const opponentScore = opponentResult?.score ?? "N/D"
+
+		const venceu = furiaScore > opponentScore
+
+		return `A última partida foi ${teams}. ${formatedDate}. Resultado: ${furiaScore} x ${opponentScore} — FURIA ${
+			venceu ? "venceu" : "perdeu"
+		}.`
+	} catch (error) {
+		console.error("Erro ao obter resultado da última partida:", error)
+		return "Desculpe, não consegui obter o resultado da última partida."
 	}
 }

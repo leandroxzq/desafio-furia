@@ -5,7 +5,8 @@ import {
 	getUpcomingMatch,
 	getFuriaPlayers,
 	player,
-} from "../../src/lib/pandascore"
+	getLastMatchResult,
+} from "@/lib/pandascore"
 
 const ai = new GoogleGenAI({
 	apiKey: process.env.GEMINI_API_KEY,
@@ -30,12 +31,13 @@ export default async function handler(
 
 			Instruções:
 			- Quando a pergunta for sobre o próximo jogo da FURIA, responda apenas com a palavra-chave: FETCH_MATCH.
+			- Quando a pergunta for sobre o último resultado da FURIA, responda apenas com a palavra-chave: FETCH_LAST.
 			- Se a pergunta for sobre um jogador (ex: Fallen), utilize os dados fornecidos.
 			- Seja direto, informal e simpático com o usuário.
 			- NUNCA use markdown.
 
 			Pergunta do usuário: """${question}"""
-			Responda com a melhor resposta possível ou FETCH_MATCH se for o caso.
+			Responda com a melhor resposta possível ou use as palavras-chave
 			`
 
 		const aiResponse = await ai.models.generateContent({
@@ -47,6 +49,9 @@ export default async function handler(
 
 		if (geminiAnswer?.trim() === "FETCH_MATCH") {
 			const matchResponse = await getUpcomingMatch()
+			res.status(200).json({ answer: matchResponse })
+		} else if (geminiAnswer?.trim() === "FETCH_LAST") {
+			const matchResponse = await getLastMatchResult()
 			res.status(200).json({ answer: matchResponse })
 		} else {
 			res.status(200).json({ answer: geminiAnswer })
