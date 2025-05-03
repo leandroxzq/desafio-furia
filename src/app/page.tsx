@@ -5,11 +5,17 @@ import Chat from "@/components/Chat"
 import Header from "@/components/Header"
 
 import { Roboto } from "next/font/google"
+import type { Metadata } from "next"
 
 const roboto = Roboto({
 	weight: "400",
 	subsets: ["latin"],
 })
+
+export const metadata: Metadata = {
+	title: "Furiabot",
+	description: "Desafio Experiência Conversacional.",
+}
 
 export default function Home() {
 	return (
