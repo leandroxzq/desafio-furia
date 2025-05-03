@@ -34,6 +34,10 @@ const Chatbot = () => {
 			question: "Qual próximo jogo da furia?",
 		},
 		{
+			text: "Último resultado",
+			question: "Qual foi o último resultado da furia?",
+		},
+		{
 			text: "Fallen",
 			question: "Quem é o fallen?",
 		},
@@ -103,10 +107,10 @@ const Chatbot = () => {
 			{/* Área de chat */}
 			<div
 				className="flex-1 p-4  overflow-y-auto
-  [&::-webkit-scrollbar]:w-0
-  [&::-webkit-scrollbar]:h-0
-  [&::-webkit-scrollbar-track]:bg-transparent
-  [&::-webkit-scrollbar-thumb]:bg-transparent"
+				[&::-webkit-scrollbar]:w-0
+				[&::-webkit-scrollbar]:h-0
+				[&::-webkit-scrollbar-track]:bg-transparent
+				[&::-webkit-scrollbar-thumb]:bg-transparent"
 			>
 				<div className="space-y-4">
 					{messages.map((message, index) => (
