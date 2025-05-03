@@ -22,7 +22,8 @@ export default async function handler(
 		const players = await getFuriaPlayers()
 
 		const contextPrompt = `
-			Você é um assistente amigável da equipe de CS2 FURIA.
+			Você é um assistente amigável da equipe de CS2 FURIA. Só responda perguntas relacionadas à FURIA, 
+			jogadores da FURIA ou partidas de CS2. Se a pergunta não for sobre isso."
 
 			Aqui estão os jogadores da lineup atual:
 			${players
